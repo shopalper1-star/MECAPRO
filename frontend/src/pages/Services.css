@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap');
+
+/* ─────────────────────────────────────────
+   PAGE WRAPPER
+───────────────────────────────────────── */
+.services-page {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-family-latin);
+}
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+.services-page .services-hero {
+  position: relative;
+  background: linear-gradient(160deg, var(--black) 40%, #1a0a0b 100%);
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.services-page .services-hero-content h1 {
+  font-family: var(--font-family-title);
+  font-size: clamp(48px, 8vw, 120px);
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.services-page .services-hero-content p {
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ─────────────────────────────────────────
+   SERVICE CATEGORIES
+───────────────────────────────────────── */
+.services-page .service-category {
+  padding: 80px 6vw;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.services-page .category-title {
+  font-family: var(--font-family-title);
+  font-size: clamp(36px, 5vw, 72px);
+  color: var(--white);
+  margin-bottom: 24px;
+  position: relative;
+  padding-top: 18px;
+}
+
+.services-page .category-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--red);
+}
+
+/* ─────────────────────────────────────────
+   SERVICES GRID & CARDS
+───────────────────────────────────────── */
+.services-page .services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.services-page .service-card {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  padding: 32px 24px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.services-page .service-card:hover {
+  background: var(--steel);
+}
+
+.services-page .service-icon {
+  font-size: 36px;
+  color: var(--red);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  background: var(--red-glow);
+  border: 1px solid var(--red-glow);
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.services-page .service-card:hover .service-icon {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+
+.services-page .service-title {
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.services-page .service-description {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ─────────────────────────────────────────
+   SUPPORT BADGE
+───────────────────────────────────────── */
+.services-page .services-footer {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.services-page .support-badge {
+  background: var(--red);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 700;
+  font-family: var(--font-family-title);
+  text-transform: uppercase;
+  transition: all 0.2s;
+  clip-path: polygon(0 0,
+      calc(100% - 8px) 0,
+      100% 8px,
+      100% 100%,
+      8px 100%,
+      0 calc(100% - 8px));
+}
+
+.services-page .support-badge:hover {
+  border: 1px solid var(--border);
+  color: var(--white);
+  border-color: var(--red);
+  box-shadow: 0 0 14px var(--red-glow);
+  transform: translateY(-2px);
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .services-page .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services-page .service-category {
+    padding: 60px 5vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .services-page .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-page .service-category {
+    padding: 44px 5vw;
+  }
+
+  .services-page .services-hero {
+    min-height: 40vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-page .service-card {
+    padding: 24px 16px;
+  }
+
+  .services-page .support-badge {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .services-page .services-footer {
+    padding: 40px 5vw;
+  }
+}

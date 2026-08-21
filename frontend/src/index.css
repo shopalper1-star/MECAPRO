@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cairo:wght@200;300;400;600;700;900&display=swap');
+
+:root {
+  /* GLOBAL BLACK & RED THEME VARIABLES (Default Dark) */
+  --black: #0a0a0a;
+  --charcoal: #141414;
+  --steel: #1e2227;
+  --charcoal-light: #2a2a2a;
+
+  --red: #e8202a;
+  --red-dark: #b01920;
+  --red-glow: rgba(232, 32, 42, 0.15);
+
+  --white: #f5f0eb;
+  --muted: #8a8a8a;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-light: rgba(255, 255, 255, 0.15);
+
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.15);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.15);
+  --info: #3b82f6;
+  --info-bg: rgba(59, 130, 246, 0.15);
+  --danger: var(--red);
+  --danger-bg: var(--red-glow);
+
+
+  /* English and French Font */
+  --font-family-latin: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Arabic Font */
+  --font-family-arabic: 'Cairo', sans-serif;
+  /* Title Font */
+  --font-family-title: 'Bebas Neue', 'Cairo', sans-serif;
+
+  font-family: var(--font-family-latin);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--white);
+  background-color: var(--black);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[lang="ar"],
+[lang="ar"] *:not(.fa):not(.fas):not(.far):not(.fal):not(.fa-solid):not(.fa-regular):not(.fa-brands):not(i) {
+  font-family: 'Cairo', sans-serif !important;
+}
+
+[lang="en"],
+[lang="fr"] {
+  font-family: var(--font-family-latin);
+}
+
+/* ─────────────────────────────────────────
+   LIGHT MODE OVERRIDES (Old White + Blue)
+───────────────────────────────────────── */
+.light-mode {
+  --black: #f8fafc;
+  /* Main background */
+  --charcoal: #ffffff;
+  /* Card background */
+  --steel: #f1f5f9;
+  /* Alternate/Hover background */
+  --charcoal-light: #ffffff;
+  /* Form inputs etc */
+
+  --red: #2563eb;
+  /* Primary blue */
+  --red-dark: #1d4ed8;
+  /* Darker primary */
+  --red-glow: rgba(37, 99, 235, 0.15);
+
+  --white: #0f172a;
+  /* Main text color */
+  --muted: #64748b;
+  /* Muted text color */
+  --border: rgba(0, 0, 0, 0.08);
+  --border-light: rgba(0, 0, 0, 0.15);
+
+  /* Keeps the status colors relatively similar but tweaks the background for light mode */
+  --success-bg: rgba(34, 197, 94, 0.1);
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --info-bg: rgba(59, 130, 246, 0.1);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+}
+
+/* Make white logos colored/visible in Light Mode */
+.light-mode .logo {
+  filter: invert(1) brightness(0.5) sepia(1) hue-rotate(200deg) saturate(5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-title);
+}
+
+[dir="rtl"] .footer-columns {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .navbar-inner {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .navbar-links {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .navbar-actions {
+  flex-direction: row-reverse;
+}

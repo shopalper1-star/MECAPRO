@@ -1,0 +1,182 @@
+/* ====== SKELETON LOADER ====== */
+
+/* Dark mode (default) */
+:root {
+  --skeleton-bg: #2a2a2a;
+  --skeleton-shine: rgba(255, 255, 255, 0.06);
+  --skeleton-border: rgba(255, 255, 255, 0.07);
+  --card-bg: #141414;
+}
+
+/* Light mode overrides */
+body.light-mode {
+  --skeleton-bg: #e2e8f0;
+  --skeleton-shine: rgba(255, 255, 255, 0.6);
+  --skeleton-border: rgba(0, 0, 0, 0.08);
+  --card-bg: #ffffff;
+}
+
+.skeleton-base {
+  background: var(--skeleton-bg, #e0e0e0);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeleton-base::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--skeleton-shine, rgba(255, 255, 255, 0.55)) 50%,
+      transparent 100%);
+  animation: sk-shimmer 1.4s infinite;
+}
+
+@keyframes sk-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ---- Card skeletons (MechanicDashboard) ---- */
+.sk-cards-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 8px 0;
+}
+
+.sk-card {
+  border-radius: 12px;
+  border: 1px solid var(--skeleton-border, #e8e8e8);
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-bg, #fff);
+}
+
+.sk-card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.sk-line {
+  height: 13px;
+  border-radius: 4px;
+}
+
+.sk-line-lg {
+  height: 16px;
+}
+
+.sk-line-sm {
+  height: 11px;
+  width: 60%;
+}
+
+.sk-line-xs {
+  height: 10px;
+  width: 40%;
+}
+
+.sk-line-full {
+  width: 100%;
+}
+
+.sk-line-80 {
+  width: 80%;
+}
+
+.sk-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  min-width: 130px;
+}
+
+.sk-btn {
+  height: 36px;
+  width: 110px;
+  border-radius: 20px;
+}
+
+/* ---- Repair-row skeletons (ClientDashboard) ---- */
+.sk-repair-rows-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 8px 0;
+}
+
+.sk-repair-row {
+  border-radius: 12px;
+  border: 1px solid var(--skeleton-border, #e8e8e8);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg, #fff);
+  gap: 16px;
+}
+
+.sk-repair-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.sk-icon-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sk-repair-info {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1;
+}
+
+.sk-repair-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ---- Table-row skeletons (Receptionist / PartsManager) ---- */
+.sk-table-wrap {
+  width: 100%;
+}
+
+.sk-table-row {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--skeleton-border, #e8e8e8);
+}
+
+.sk-table-cell {
+  flex: 1;
+  padding: 14px 12px;
+  display: flex;
+  align-items: center;
+}
+
+.sk-cell-line {
+  height: 12px;
+  border-radius: 4px;
+  width: 75%;
+}

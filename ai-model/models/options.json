@@ -1,0 +1,353 @@
+{
+  "vehicle_type": [
+    "bus",
+    "car",
+    "moto",
+    "truck"
+  ],
+  "make": [
+    "BMW",
+    "Dacia",
+    "Ford",
+    "Honda",
+    "Hyundai",
+    "Isuzu",
+    "Kia",
+    "Mercedes",
+    "Peugeot",
+    "Renault",
+    "Toyota",
+    "Volkswagen",
+    "Volvo",
+    "Yamaha"
+  ],
+  "fuel_type": [
+    "diesel",
+    "hybrid",
+    "petrol"
+  ],
+  "transmission": [
+    "automatic",
+    "manual"
+  ],
+  "severity_level": [
+    "critical",
+    "high",
+    "low",
+    "medium"
+  ],
+  "symptoms": [
+    "AC making noise",
+    "AC not cooling well",
+    "battery warning light",
+    "black smoke from exhaust",
+    "brake pedal feels soft",
+    "brake pedal vibration",
+    "burning smell",
+    "car pulls to one side",
+    "check engine light",
+    "clunking when turning",
+    "clutch slipping",
+    "coolant level dropping",
+    "coolant overflow",
+    "difficulty changing gears",
+    "difficulty starting",
+    "dim headlights",
+    "electrical accessories failing",
+    "engine knocking noise",
+    "engine overheating",
+    "engine stalls",
+    "excessive bouncing",
+    "fuel smell",
+    "gear slipping",
+    "high fuel consumption",
+    "loss of power",
+    "low oil level warning",
+    "noise when braking",
+    "oil stain under vehicle",
+    "rough idle",
+    "suspension noise",
+    "sweet smell from engine bay",
+    "transmission jerking",
+    "vehicle wanders on road",
+    "white smoke from exhaust"
+  ],
+  "probable_causes": [
+    "AC compressor failure",
+    "AC gas leak",
+    "Alternator belt wear",
+    "Alternator failure",
+    "Ball joint socket failure",
+    "Ball joint wear",
+    "Battery cell failure",
+    "Blown head gasket",
+    "Brake pad degradation",
+    "Caliper hydraulic leak",
+    "Clogged fuel injector",
+    "Clutch pressure plate failure",
+    "Compressor clutch wear",
+    "Cracked coolant hose",
+    "Dead battery",
+    "Disc surface wear",
+    "Failed O2 sensor",
+    "Fouled spark plugs",
+    "Gearbox bearing wear",
+    "Gearbox synchronizer failure",
+    "Injector seal failure",
+    "Low refrigerant",
+    "O2 sensor contamination",
+    "Oil pan seal failure",
+    "Overheating damage to gasket",
+    "Radiator corrosion",
+    "Radiator crack",
+    "Radiator pinhole leak",
+    "Seized caliper",
+    "Shock absorber oil leak",
+    "Spark plug electrode wear",
+    "Stuck thermostat",
+    "Thermostat valve failure",
+    "Timing belt tensioner failure",
+    "Timing belt wear",
+    "Valve cover gasket leak",
+    "Warped brake disc",
+    "Worn brake pads",
+    "Worn clutch disc",
+    "Worn shock absorbers"
+  ],
+  "symptom_to_causes": {
+    "AC making noise": [
+      "AC compressor failure",
+      "Compressor clutch wear"
+    ],
+    "AC not cooling well": [
+      "AC compressor failure",
+      "AC gas leak",
+      "Compressor clutch wear",
+      "Low refrigerant"
+    ],
+    "battery warning light": [
+      "Alternator belt wear",
+      "Alternator failure",
+      "Battery cell failure",
+      "Dead battery"
+    ],
+    "black smoke from exhaust": [
+      "Clogged fuel injector",
+      "Failed O2 sensor",
+      "Injector seal failure",
+      "O2 sensor contamination",
+      "Timing belt tensioner failure",
+      "Timing belt wear"
+    ],
+    "brake pedal feels soft": [
+      "Brake pad degradation",
+      "Caliper hydraulic leak",
+      "Seized caliper",
+      "Worn brake pads"
+    ],
+    "brake pedal vibration": [
+      "Brake pad degradation",
+      "Disc surface wear",
+      "Warped brake disc",
+      "Worn brake pads"
+    ],
+    "burning smell": [
+      "AC compressor failure",
+      "Caliper hydraulic leak",
+      "Clutch pressure plate failure",
+      "Compressor clutch wear",
+      "Oil pan seal failure",
+      "Seized caliper",
+      "Valve cover gasket leak",
+      "Worn clutch disc"
+    ],
+    "car pulls to one side": [
+      "Brake pad degradation",
+      "Caliper hydraulic leak",
+      "Seized caliper",
+      "Worn brake pads"
+    ],
+    "check engine light": [
+      "AC gas leak",
+      "Battery cell failure",
+      "Dead battery",
+      "Failed O2 sensor",
+      "Low refrigerant",
+      "O2 sensor contamination",
+      "Timing belt tensioner failure",
+      "Timing belt wear"
+    ],
+    "clunking when turning": [
+      "Ball joint socket failure",
+      "Ball joint wear",
+      "Shock absorber oil leak",
+      "Worn shock absorbers"
+    ],
+    "clutch slipping": [
+      "Clutch pressure plate failure",
+      "Worn clutch disc"
+    ],
+    "coolant level dropping": [
+      "Blown head gasket",
+      "Cracked coolant hose",
+      "Overheating damage to gasket",
+      "Radiator corrosion",
+      "Radiator crack",
+      "Radiator pinhole leak"
+    ],
+    "coolant overflow": [
+      "Cracked coolant hose",
+      "Radiator corrosion",
+      "Radiator crack",
+      "Radiator pinhole leak"
+    ],
+    "difficulty changing gears": [
+      "Clutch pressure plate failure",
+      "Gearbox bearing wear",
+      "Gearbox synchronizer failure",
+      "Worn clutch disc"
+    ],
+    "difficulty starting": [
+      "Alternator belt wear",
+      "Alternator failure",
+      "Battery cell failure",
+      "Dead battery",
+      "Fouled spark plugs",
+      "Spark plug electrode wear",
+      "Stuck thermostat",
+      "Thermostat valve failure"
+    ],
+    "dim headlights": [
+      "Alternator belt wear",
+      "Alternator failure",
+      "Battery cell failure",
+      "Dead battery"
+    ],
+    "electrical accessories failing": [
+      "AC compressor failure",
+      "Alternator belt wear",
+      "Alternator failure",
+      "Compressor clutch wear"
+    ],
+    "engine knocking noise": [
+      "Oil pan seal failure",
+      "Timing belt tensioner failure",
+      "Timing belt wear",
+      "Valve cover gasket leak"
+    ],
+    "engine overheating": [
+      "Blown head gasket",
+      "Cracked coolant hose",
+      "Overheating damage to gasket",
+      "Radiator corrosion",
+      "Radiator crack",
+      "Radiator pinhole leak",
+      "Stuck thermostat",
+      "Thermostat valve failure"
+    ],
+    "engine stalls": [
+      "Clogged fuel injector",
+      "Fouled spark plugs",
+      "Injector seal failure",
+      "Spark plug electrode wear"
+    ],
+    "excessive bouncing": [
+      "Ball joint socket failure",
+      "Ball joint wear",
+      "Shock absorber oil leak",
+      "Worn shock absorbers"
+    ],
+    "fuel smell": [
+      "Clogged fuel injector",
+      "Injector seal failure"
+    ],
+    "gear slipping": [
+      "Gearbox bearing wear",
+      "Gearbox synchronizer failure"
+    ],
+    "high fuel consumption": [
+      "AC gas leak",
+      "Clogged fuel injector",
+      "Failed O2 sensor",
+      "Fouled spark plugs",
+      "Injector seal failure",
+      "Low refrigerant",
+      "O2 sensor contamination",
+      "Spark plug electrode wear",
+      "Stuck thermostat",
+      "Thermostat valve failure"
+    ],
+    "loss of power": [
+      "Blown head gasket",
+      "Disc surface wear",
+      "Fouled spark plugs",
+      "Gearbox bearing wear",
+      "Gearbox synchronizer failure",
+      "Overheating damage to gasket",
+      "Spark plug electrode wear",
+      "Timing belt tensioner failure",
+      "Timing belt wear",
+      "Warped brake disc"
+    ],
+    "low oil level warning": [
+      "Oil pan seal failure",
+      "Valve cover gasket leak"
+    ],
+    "noise when braking": [
+      "Brake pad degradation",
+      "Caliper hydraulic leak",
+      "Disc surface wear",
+      "Seized caliper",
+      "Warped brake disc",
+      "Worn brake pads"
+    ],
+    "oil stain under vehicle": [
+      "Oil pan seal failure",
+      "Valve cover gasket leak"
+    ],
+    "rough idle": [
+      "Blown head gasket",
+      "Clogged fuel injector",
+      "Failed O2 sensor",
+      "Fouled spark plugs",
+      "Injector seal failure",
+      "O2 sensor contamination",
+      "Overheating damage to gasket",
+      "Spark plug electrode wear",
+      "Stuck thermostat",
+      "Thermostat valve failure",
+      "Timing belt tensioner failure",
+      "Timing belt wear"
+    ],
+    "suspension noise": [
+      "Ball joint socket failure",
+      "Ball joint wear",
+      "Shock absorber oil leak",
+      "Worn shock absorbers"
+    ],
+    "sweet smell from engine bay": [
+      "Cracked coolant hose",
+      "Radiator pinhole leak"
+    ],
+    "transmission jerking": [
+      "Clutch pressure plate failure",
+      "Gearbox bearing wear",
+      "Gearbox synchronizer failure",
+      "Worn clutch disc"
+    ],
+    "vehicle wanders on road": [
+      "Ball joint socket failure",
+      "Ball joint wear",
+      "Disc surface wear",
+      "Shock absorber oil leak",
+      "Warped brake disc",
+      "Worn shock absorbers"
+    ],
+    "white smoke from exhaust": [
+      "Blown head gasket",
+      "Overheating damage to gasket",
+      "Radiator corrosion",
+      "Radiator crack"
+    ]
+  }
+}

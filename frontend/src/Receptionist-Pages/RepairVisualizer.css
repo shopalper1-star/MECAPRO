@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap');
+
+/* ─────────────────────────────────────────
+   PAGE LAYOUT
+───────────────────────────────────────── */
+.visualizer-page {
+  background: var(--black);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-latin);
+  color: var(--white);
+}
+
+.visualizer-content {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────
+   SIDEBAR (Left Panel)
+───────────────────────────────────────── */
+.repair-sidebar {
+  width: 360px;
+  background: var(--charcoal);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3);
+}
+
+.repair-sidebar-header {
+  padding: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.repair-sidebar-header h3 {
+  margin: 0;
+  font-family: var(--font-family-title);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  position: relative;
+  padding-left: 12px;
+}
+
+.repair-sidebar-header h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 14px;
+  background: var(--red);
+}
+
+.repair-list {
+  padding: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.repair-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.repair-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.repair-list::-webkit-scrollbar-thumb {
+  background-color: var(--border-light);
+  border-radius: 3px;
+}
+
+/* ─────────────────────────────────────────
+   REPAIR CARDS (sidebar)
+───────────────────────────────────────── */
+.repair-item {
+  padding: 14px;
+  background: var(--black);
+  border: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.repair-item:hover {
+  background: var(--steel);
+  border-color: var(--border-light);
+}
+
+.repair-item.active {
+  background: var(--steel);
+  border-color: var(--border-light);
+  border-left-color: var(--red);
+}
+
+.repair-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.vehicle-title {
+  font-weight: 700;
+  color: var(--white);
+  font-size: 0.92rem;
+  font-family: var(--font-family-title);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.repair-desc {
+  font-size: 0.83rem;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.repair-sub-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  opacity: 0.7;
+  display: block;
+  line-height: 1.4;
+}
+
+/* ─────────────────────────────────────────
+   BADGES (status)
+───────────────────────────────────────── */
+.badge {
+  font-size: 10px;
+  padding: 3px 9px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  border: 1px solid;
+}
+
+.badge.pending {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.badge.progress {
+  background: var(--info-bg);
+  color: var(--info);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.badge.completed {
+  background: var(--success-bg);
+  color: var(--success);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.badge.cancelled {
+  background: var(--red-glow);
+  color: var(--red);
+  border-color: var(--red-glow);
+}
+
+/* ─────────────────────────────────────────
+   MAIN STAGE (Right Panel)
+───────────────────────────────────────── */
+.visualizer-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: var(--black);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ─────────────────────────────────────────
+   CAR CARD
+───────────────────────────────────────── */
+.car-card-wrapper {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.stage-header {
+  width: 100%;
+  padding: 18px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--steel);
+}
+
+.stage-header h2 {
+  font-family: var(--font-family-title);
+  font-size: 1.4rem;
+  color: var(--white);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────
+   CAR IMAGE
+───────────────────────────────────────── */
+.car-container {
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.vehicle-image {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+}
+
+/* ─────────────────────────────────────────
+   CONTROL BAR (Hidden - keeping for compatibility)
+───────────────────────────────────────── */
+.control-bar {
+  display: none;
+}
+
+.view-btn {
+  display: none;
+}
+
+/* ─────────────────────────────────────────
+   OVERLAY ZONES
+───────────────────────────────────────── */
+.visual-overlay-box {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  backdrop-filter: blur(2px);
+}
+
+.zone-label {
+  display: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ─────────────────────────────────────────
+   LEGEND
+───────────────────────────────────────── */
+.legend {
+  display: flex;
+  gap: 20px;
+  padding: 12px 20px;
+  background: var(--steel);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ─────────────────────────────────────────
+   BACK BUTTON
+───────────────────────────────────────── */
+.back-link-container {
+  margin-top: auto;
+  text-align: center;
+  padding: 14px;
+  background: var(--steel);
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+
+.visualizer-page .back-link-container:hover {
+  color: var(--red);
+  background: var(--charcoal);
+}

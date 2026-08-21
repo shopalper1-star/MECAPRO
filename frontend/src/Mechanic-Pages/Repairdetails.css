@@ -1,0 +1,1245 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@700;800&display=swap');
+
+/* ─────────────────────────────────────────
+   CONTAINER
+───────────────────────────────────────── */
+.repair-details-container {
+  min-height: 100vh;
+  background: var(--black);
+  font-family: var(--font-family-latin);
+  color: var(--white);
+  line-height: 1.6;
+}
+
+.repair-details-container .repair-content-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+/* ─────────────────────────────────────────
+   LOADING STATES
+───────────────────────────────────────── */
+.repair-details-container .loading-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  animation: repairFadeIn 0.5s ease-in;
+}
+
+.repair-details-container .section-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: var(--charcoal);
+  border: 1px dashed var(--border-light);
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.repair-details-container .spinner-mini {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 16px;
+  border: 3px solid var(--border-light);
+  border-top: 3px solid var(--red);
+  border-radius: 50%;
+  animation: repairSpin 0.8s linear infinite;
+}
+
+/* ─────────────────────────────────────────
+   SECTIONS
+───────────────────────────────────────── */
+.repair-details-container .vehicle-info-section,
+.repair-details-container .services-section,
+.repair-details-container .summary-section {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.repair-details-container h2 {
+  font-family: var(--font-family-title);
+  font-size: 1.5rem;
+  color: var(--white);
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  padding-top: 14px;
+}
+
+.repair-details-container h2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 3px;
+  background: var(--red);
+}
+
+.repair-details-container h2 i {
+  color: var(--red);
+  font-size: 1.3rem;
+}
+
+.repair-details-container h3 {
+  font-family: var(--font-family-title);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────
+   INFO GRID
+───────────────────────────────────────── */
+.repair-details-container .info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.repair-details-container .info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.repair-details-container .info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.repair-details-container .info-item label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.repair-details-container .info-item input,
+.repair-details-container .info-item textarea {
+  padding: 11px 14px;
+  background: var(--charcoal-light);
+  border: 1px solid var(--border-light);
+  color: var(--white);
+  font-size: 0.95rem;
+  resize: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: var(--font-family-latin);
+}
+
+.repair-details-container .info-item input:focus,
+.repair-details-container .info-item textarea:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-glow);
+}
+
+.repair-details-container .info-item input[readonly],
+.repair-details-container .info-item textarea[readonly] {
+  background: var(--black);
+  color: var(--muted);
+  cursor: default;
+}
+
+.repair-details-container .info-item textarea {
+  min-height: 90px;
+}
+
+/* Service Badges (current job) */
+.repair-details-container .service-badges-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.repair-details-container .service-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  background: var(--info-bg);
+  color: var(--info);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────
+   SEARCH & FILTERS
+───────────────────────────────────────── */
+.repair-details-container .services-header {
+  margin-bottom: 22px;
+}
+
+.repair-details-container .search-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.repair-details-container .search-input {
+  width: 100%;
+  padding: 12px 16px 12px 46px;
+  background: var(--charcoal-light);
+  border: 1px solid var(--border-light);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-family: var(--font-family-latin);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.repair-details-container .search-input:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px var(--red-glow);
+}
+
+.repair-details-container .search-input::placeholder {
+  color: var(--muted);
+}
+
+.repair-details-container .search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.repair-details-container .zone-filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.repair-details-container .zone-filter button {
+  padding: 8px 18px;
+  border: 1px solid var(--border-light);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: var(--font-family-title);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: all 0.2s;
+}
+
+.repair-details-container .zone-filter button.active,
+.repair-details-container .zone-filter button:hover {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+
+/* Category Headers */
+.repair-details-container .category-header {
+  font-family: var(--font-family-title);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.repair-details-container .category-header::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--red);
+}
+
+/* ─────────────────────────────────────────
+   SERVICE CARDS
+───────────────────────────────────────── */
+.repair-details-container .service-category-group {
+  margin-bottom: 32px;
+}
+
+.repair-details-container .service-category-group .services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.repair-details-container .service-card {
+  border: 1px solid var(--border);
+  padding: 18px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s;
+  background: var(--black);
+}
+
+.repair-details-container .service-card:hover {
+  background: var(--steel);
+  border-color: var(--border-light);
+}
+
+.repair-details-container .service-card.selected {
+  border-color: var(--red);
+  background: var(--red-glow);
+  border-left: 3px solid var(--red);
+}
+
+.repair-details-container .service-info h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--white);
+  line-height: 1.4;
+}
+
+.repair-details-container .service-zone {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--steel);
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.repair-details-container .service-card.selected .service-zone {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+
+.repair-details-container .selected-checkmark {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: repairCheckPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.repair-details-container .selected-checkmark i {
+  color: var(--white);
+  font-size: 0.85rem;
+}
+
+/* ─────────────────────────────────────────
+   MAIN BUTTONS
+───────────────────────────────────────── */
+.repair-details-container .btn-submit {
+  width: 100%;
+  padding: 14px 24px;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-family-title);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.repair-details-container .btn-submit i {
+  color: var(--white);
+}
+
+.repair-details-container .btn-submit:hover {
+  background: var(--red-dark);
+  box-shadow: 0 0 20px var(--red-glow);
+}
+
+.repair-details-container .btn-submit:disabled {
+  background: var(--steel);
+  cursor: not-allowed;
+  opacity: 0.5;
+  clip-path: none;
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────
+   SUMMARY / SELECTED SERVICES LIST
+───────────────────────────────────────── */
+.repair-details-container .summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.repair-details-container .badge-count {
+  background: var(--red);
+  color: var(--white);
+  padding: 4px 14px;
+  font-family: var(--font-family-title);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.repair-details-container .summary-list-header,
+.repair-details-container .summary-item-row {
+  display: grid;
+  grid-template-columns: 1fr 140px 160px 60px;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.repair-details-container .summary-list-header {
+  background: var(--steel);
+  font-weight: 700;
+  font-family: var(--font-family-title);
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-left: none;
+  border-right: none;
+}
+
+.repair-details-container .summary-item-row {
+  background: var(--black);
+  transition: background 0.15s;
+}
+
+.repair-details-container .summary-item-row:last-child {
+  border-bottom: none;
+}
+
+.repair-details-container .summary-item-row:hover {
+  background: var(--steel);
+}
+
+.repair-details-container .item-name {
+  font-weight: 500;
+  color: var(--white);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.repair-details-container .item-zone-tag {
+  background: var(--info-bg);
+  color: var(--info);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  width: fit-content;
+  justify-self: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────
+   QTY BOX & REMOVE
+───────────────────────────────────────── */
+.repair-details-container .qty-input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--steel);
+  border: 1px solid var(--border);
+  padding: 5px 10px;
+  justify-self: center;
+}
+
+.repair-details-container .qty-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.repair-details-container .qty-custom-input {
+  width: 55px;
+  padding: 5px 8px;
+  background: var(--charcoal-light);
+  border: 1px solid var(--border-light);
+  color: var(--white);
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: var(--font-family-latin);
+}
+
+.repair-details-container .qty-custom-input:focus {
+  border-color: var(--red);
+}
+
+.repair-details-container .btn-remove {
+  background: var(--red-glow);
+  color: var(--red);
+  border: 1px solid var(--red-glow);
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  justify-self: center;
+}
+
+.repair-details-container .btn-remove:hover {
+  background: var(--red-glow);
+  transform: scale(1.1);
+}
+
+.repair-details-container .btn-remove i {
+  font-size: 0.9rem;
+  color: var(--red);
+}
+
+.repair-details-container .summary-footer {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.repair-details-container .total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  background: var(--steel);
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.repair-details-container .total-row span:first-child {
+  font-family: var(--font-family-title);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.repair-details-container .total-number {
+  font-family: var(--font-family-title);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--red);
+  letter-spacing: 0.05em;
+}
+
+/* ─────────────────────────────────────────
+   BACK LINK
+───────────────────────────────────────── */
+.repair-details-container .back-link-container {
+  margin-bottom: 22px;
+}
+
+.repair-details-container .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--muted);
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.repair-details-container .back-link:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: var(--red-glow);
+}
+
+/* ─────────────────────────────────────────
+   CONFIRMATION VIEW
+───────────────────────────────────────── */
+.repair-details-container .confirmation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+}
+
+.repair-details-container .confirmation-success {
+  background: var(--charcoal);
+  border: 1px solid var(--border-light);
+  border-top: 2px solid var(--success);
+  padding: 48px;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.repair-details-container .success-icon {
+  font-size: 3.5rem;
+  color: var(--success);
+  margin-bottom: 20px;
+  display: block;
+  animation: repairCheckPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.repair-details-container .confirmation-success h2 {
+  font-family: var(--font-family-title);
+  font-size: 2rem;
+  color: var(--white);
+  margin-bottom: 28px;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+.repair-details-container .confirmation-success h2::before {
+  display: none;
+}
+
+.repair-details-container .request-summary {
+  background: var(--black);
+  border: 1px solid var(--border);
+  padding: 22px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.repair-details-container .request-summary p {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.repair-details-container .request-summary h4 {
+  margin: 18px 0 14px;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.repair-details-container .request-summary ul {
+  list-style: none;
+  padding: 0;
+}
+
+.repair-details-container .request-summary li {
+  padding: 10px 14px;
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.repair-details-container .qty-pill {
+  background: var(--red);
+  color: var(--white);
+  padding: 3px 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.repair-details-container .confirmation-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.repair-details-container .btn-primary {
+  padding: 12px 26px;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.repair-details-container .btn-primary:hover {
+  background: var(--red-dark);
+  box-shadow: 0 0 14px var(--red-glow);
+}
+
+.repair-details-container .btn-secondary {
+  padding: 12px 26px;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border-light);
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.2s, color 0.2s;
+  text-decoration: none;
+}
+
+.repair-details-container .btn-secondary:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ─────────────────────────────────────────
+   ALERT MESSAGES
+───────────────────────────────────────── */
+.repair-details-container .alert-message {
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  font-weight: 500;
+  margin-bottom: 16px;
+  border-left: 3px solid;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.repair-details-container .alert-message.success {
+  background: var(--success-bg);
+  color: var(--success);
+  border-color: var(--success);
+}
+
+.repair-details-container .alert-message.error {
+  background: var(--red-glow);
+  color: var(--red);
+  border-color: var(--red);
+}
+
+/* ─────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────── */
+@keyframes repairSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes repairFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes repairCheckPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  80% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────
+   TOAST (shared with dashboard)
+───────────────────────────────────────── */
+.mech-toast {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 9999;
+  border-left: 3px solid;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  animation: toastSlideIn 0.3s ease-out;
+  min-width: 280px;
+}
+
+.mech-toast.success {
+  background: var(--charcoal);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.mech-toast.error {
+  background: var(--charcoal);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ─────────────────────────────────────────
+   PARTS SECTION SUBTITLE
+───────────────────────────────────────── */
+.parts-section-subtitle {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 4px;
+}
+
+/* ─────────────────────────────────────────
+   MULTI-PART LIST
+───────────────────────────────────────── */
+.multi-part-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.part-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 90px 36px;
+  align-items: center;
+  gap: 10px;
+  background: var(--black);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  transition: border-color 0.15s;
+}
+
+.part-row:focus-within {
+  border-color: var(--border-light);
+}
+
+/* Row number indicator */
+.part-row-num {
+  font-family: var(--font-family-title);
+  font-size: 1.2rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1;
+}
+
+/* ─── Search area ─── */
+.part-row-search {
+  position: relative;
+}
+
+.part-row-input-wrap {
+  position: relative;
+}
+
+.part-row-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 0.82rem;
+  pointer-events: none;
+}
+
+.part-row-input {
+  width: 100%;
+  padding: 9px 12px 9px 34px;
+  background: var(--charcoal-light);
+  border: 1px solid var(--border-light);
+  color: var(--white);
+  font-family: var(--font-family-latin);
+  font-size: 0.88rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.part-row-input:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+.part-row-input::placeholder {
+  color: var(--muted);
+}
+
+/* ─── Dropdown ─── */
+.part-row-dropdown {
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 0;
+  right: 0;
+  background: var(--charcoal);
+  border: 1px solid var(--border-light);
+  border-top: 2px solid var(--red);
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.part-row-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.part-row-dropdown-item:hover {
+  background: var(--steel);
+}
+
+.part-row-dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.pdd-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.pdd-left strong {
+  color: var(--white);
+  font-size: 0.88rem;
+}
+
+.pdd-left span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.pdd-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.pdd-price {
+  font-weight: 700;
+  color: var(--red);
+  font-size: 0.85rem;
+}
+
+.pdd-stock {
+  font-size: 0.75rem;
+  color: var(--success);
+}
+
+.pdd-stock.low {
+  color: var(--red);
+}
+
+.pdd-empty {
+  padding: 14px;
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+/* ─── Selected part preview ─── */
+.part-row-selected {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--red-glow);
+  border: 1px solid var(--red-glow);
+  padding: 8px 12px;
+}
+
+.part-row-selected-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.part-row-selected-info strong {
+  color: var(--white);
+  font-size: 0.88rem;
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.part-row-ref {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.part-row-selected-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.part-row-price {
+  font-weight: 700;
+  color: var(--red);
+  font-size: 0.88rem;
+}
+
+.part-row-stock {
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid;
+}
+
+.part-row-stock.ok {
+  background: var(--success-bg);
+  color: var(--success);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.part-row-stock.low {
+  background: var(--red-glow);
+  color: var(--red);
+  border-color: var(--red-glow);
+}
+
+.part-row-clear {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px 4px;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.part-row-clear:hover {
+  color: var(--red);
+}
+
+/* ─── Quantity ─── */
+.part-row-qty {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+}
+
+.part-row-qty label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.part-qty-input {
+  width: 100%;
+  padding: 8px 6px;
+  background: var(--charcoal-light);
+  border: 1px solid var(--border-light);
+  color: var(--white);
+  font-family: var(--font-family-latin);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: center;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.part-qty-input:focus {
+  outline: none;
+  border-color: var(--red);
+}
+
+/* ─── Remove row button ─── */
+.part-row-remove {
+  background: none;
+  border: 1px solid var(--red-glow);
+  color: var(--muted);
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  transition: all 0.15s;
+}
+
+.part-row-remove:hover {
+  background: var(--red-glow);
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ─────────────────────────────────────────
+   MULTI-PART ACTIONS (bottom bar)
+───────────────────────────────────────── */
+.multi-part-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-add-part-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px dashed var(--border-light);
+  color: var(--muted);
+  font-family: var(--font-family-title);
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-add-part-row:hover {
+  border-color: var(--red);
+  border-style: solid;
+  color: var(--red);
+}
+
+.row-counter {
+  background: var(--steel);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .repair-details-container .service-category-group .services-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  .repair-details-container .summary-list-header,
+  .repair-details-container .summary-item-row {
+    grid-template-columns: 1fr 100px;
+  }
+
+  .repair-details-container .repair-content-wrapper {
+    padding: 16px;
+  }
+
+  .part-row {
+    grid-template-columns: 24px 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .part-row-qty {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .part-qty-input {
+    width: 80px;
+  }
+
+  .part-row-remove {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .multi-part-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

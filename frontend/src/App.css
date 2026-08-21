@@ -1,0 +1,10 @@
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--black);
+}
+
+.page-content {
+  flex: 1;
+}
