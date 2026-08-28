@@ -1,13 +1,18 @@
 {
-    "framework": "vite",
-    "buildCommand": "npm run build",
-    "installCommand": "npm install",
+    "framework": "static",
+    "buildpack": "localhost/pxxl/buildpacks/static-npm:1.27",
+    "installCommand": "npm install --legacy-peer-deps",
+    "buildCommand": "npx vite build",
     "outputDirectory": "dist",
+    "startCommand": "",
     "routes": [
         {
             "src": "/*",
             "dest": "/index.html",
             "status": 200
         }
-    ]
+    ],
+    "env": {
+        "VITE_APP_NAME": "MECAPRO"
+    }
 }
