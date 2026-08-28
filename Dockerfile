@@ -13,7 +13,7 @@ RUN npm install --legacy-peer-deps
 COPY frontend/ ./
 
 # Build frontend
-RUN npx vite build
+RUN chmod +x node_modules/.bin/vite && ./node_modules/.bin/vite build
 
 
 # ============================================
