@@ -13,7 +13,7 @@ RUN npm install --legacy-peer-deps
 COPY frontend/ ./
 
 # Build frontend
-RUN npm run build
+RUN npx vite build
 
 
 # ============================================
