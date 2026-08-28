@@ -1,0 +1,19 @@
+{
+    "services": {
+        "frontend": {
+            "build": "cd frontend && npm install --legacy-peer-deps && npx vite build",
+            "publish": "frontend/dist",
+            "port": 3000
+        },
+        "backend": {
+            "build": "cd backend && composer install --no-dev --optimize-autoloader && php artisan config:cache",
+            "start": "cd backend && php artisan serve --host=0.0.0.0 --port=8080",
+            "port": 8080
+        },
+        "ai-model": {
+            "build": "cd ai-model && pip install -r requirements.txt",
+            "start": "cd ai-model && gunicorn app:app --bind 0.0.0.0:5000",
+            "port": 5000
+        }
+    }
+}
