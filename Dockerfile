@@ -89,6 +89,9 @@ COPY --from=ai-model-builder /usr/local/lib/python3.11/site-packages /usr/local/
 # Set working directory to Laravel
 WORKDIR /var/www/html
 
+# Run migrations (force to avoid prompt)
+RUN php artisan migrate --force || true
+
 # Expose port
 EXPOSE 8080
 
