@@ -1,0 +1,7 @@
+@"
+vendor
+storage
+.git
+*.log
+.env
+"@ | Out-File -FilePath backend/.dockerignore -Encoding utf8
