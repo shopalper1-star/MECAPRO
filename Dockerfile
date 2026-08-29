@@ -125,9 +125,8 @@ WORKDIR /var/www/html
 # Disable Telescope to avoid table errors during migration
 ENV TELESCOPE_ENABLED=false
 
-# Clear and cache configuration
+# Clear and cache configuration (routes and views only, config will be cached at runtime)
 RUN php artisan config:clear \
-    && php artisan config:cache \
     && php artisan route:cache \
     && php artisan view:clear
 

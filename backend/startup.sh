@@ -6,6 +6,9 @@ echo "Starting Laravel on port 8080 (EXTERNAL)..."
 echo "=========================================="
 cd /var/www/html
 
+# Cache configuration with runtime variables
+php artisan config:cache
+
 # Run migrations first
 php artisan migrate --force --no-interaction || echo "⚠️ Migrations failed, continuing anyway!"
 
