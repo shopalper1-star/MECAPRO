@@ -87,9 +87,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_pgsql pgsql
 
 # ============================================
-# 🟢 INSTALL PYTHON PACKAGES DIRECTLY IN FINAL IMAGE
+# 🟢 COPY PYTHON PACKAGES FROM AI MODEL BUILDER
+# (This avoids the pip3 install failure)
 # ============================================
-RUN pip3 install --no-cache-dir flask flask-cors joblib pandas numpy scikit-learn
+COPY --from=ai-model-builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html
@@ -97,7 +98,7 @@ COPY --from=backend-builder /var/www/html /var/www/html
 # Copy Frontend (served from Laravel public folder) - FIXED: Added trailing slash
 COPY --from=frontend-builder /app/frontend/dist/ /var/www/html/public/
 
-# Copy AI Model (source code only, not site-packages)
+# Copy AI Model source code
 COPY --from=ai-model-builder /app /var/www/html/ai-model
 
 # Set working directory to Laravel
