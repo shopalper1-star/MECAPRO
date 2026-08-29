@@ -2,6 +2,17 @@
 set -e
 
 echo "=========================================="
+echo "Checking Python..."
+echo "=========================================="
+which python3
+python3 --version
+
+echo "=========================================="
+echo "Checking Flask..."
+echo "=========================================="
+python3 -c "import flask; print(f'Flask version: {flask.__version__}')" || echo "Flask NOT found!"
+
+echo "=========================================="
 echo "Starting Flask AI on port 5000..."
 echo "=========================================="
 cd /var/www/html/ai-model
@@ -23,6 +34,7 @@ fi
 echo "=========================================="
 echo "Running Laravel migrations..."
 echo "=========================================="
+cd /var/www/html
 php artisan migrate --force --no-interaction
 
 echo "=========================================="

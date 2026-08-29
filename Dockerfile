@@ -86,15 +86,19 @@ RUN apt-get update && apt-get install -y \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && docker-php-ext-install pdo_pgsql pgsql
 
+# ============================================
+# 🟢 INSTALL PYTHON PACKAGES DIRECTLY IN FINAL IMAGE
+# ============================================
+RUN pip3 install --no-cache-dir flask flask-cors joblib pandas numpy scikit-learn
+
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html
 
 # Copy Frontend (served from Laravel public folder) - FIXED: Added trailing slash
 COPY --from=frontend-builder /app/frontend/dist/ /var/www/html/public/
 
-# Copy AI Model
+# Copy AI Model (source code only, not site-packages)
 COPY --from=ai-model-builder /app /var/www/html/ai-model
-COPY --from=ai-model-builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 
 # Set working directory to Laravel
 WORKDIR /var/www/html
