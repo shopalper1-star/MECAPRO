@@ -51,7 +51,6 @@ RUN composer install --no-dev --optimize-autoloader
 
 # ============================================
 # 🟢 FIX PERMISSIONS IN THE BUILDER STAGE
-# (This ensures storage is writable when copied)
 # ============================================
 RUN mkdir -p /var/www/html/storage/framework/views \
     && mkdir -p /var/www/html/storage/framework/cache/data \
@@ -126,7 +125,7 @@ WORKDIR /var/www/html
 # Disable Telescope to avoid table errors during migration
 ENV TELESCOPE_ENABLED=false
 
-# Clear and cache configuration (NO chmod here - permissions already set)
+# Clear and cache configuration
 RUN php artisan config:clear \
     && php artisan config:cache \
     && php artisan route:cache \
@@ -138,8 +137,9 @@ RUN php artisan config:clear \
 COPY backend/startup.sh /usr/local/bin/startup.sh
 RUN chmod +x /usr/local/bin/startup.sh
 
-# Create log file for Flask
-RUN touch /var/www/html/ai-model/flask.log
+# Create log files
+RUN touch /var/www/html/ai-model/flask.log \
+    && touch /var/www/html/laravel.log
 
 # Expose port
 EXPOSE 8080

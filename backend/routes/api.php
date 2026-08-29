@@ -40,6 +40,7 @@ Route::prefix('ai')->group(function () {
 });
 
 // Proxy to Flask (if AiController is not working, this will call Flask directly)
+// Proxy to Flask
 Route::post('/ai-proxy', function (Request $request) {
     try {
         $client = new Client(['timeout' => 30]);
