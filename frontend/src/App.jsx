@@ -4,9 +4,9 @@ import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
 import Signup from './pages/Signup.jsx'
 import Login from './pages/Login.jsx'
-import VerifyEmail from './pages/VerifyEmail.jsx' // ✅ NEW IMPORT
-import Contact from './pages/Contact.jsx' 
-import About from './pages/About.jsx' 
+import VerifyEmail from './pages/VerifyEmail.jsx'
+import Contact from './pages/Contact.jsx'
+import About from './pages/About.jsx'
 import Services from './pages/Services.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import 'remixicon/fonts/remixicon.css';
@@ -25,16 +25,19 @@ import RepairVisualizer from './Receptionist-Pages/RepairVisualizer';
 
 import './App.css'
 
+// 🔥 FIX: Use the deployed URL instead of localhost
+export const API_URL = 'https://mecapro.orkestr.run/api';
+
 const ProtectedRoute = ({ allowedRoles }) => {
   const token = localStorage.getItem('ACCESS_TOKEN');
   let userRole = localStorage.getItem('USER_ROLE');
-  
+
   // Normalize role to ensure 'Client' matches 'client'
   const cleanRole = userRole ? userRole.trim().toLowerCase() : '';
   const normalizedAllowed = allowedRoles.map(r => r.toLowerCase());
 
   if (!token) return <Navigate to="/login" replace />;
-  
+
   if (!normalizedAllowed.includes(cleanRole)) {
     return <Navigate to="/unauthorized" replace />;
   }
@@ -43,10 +46,10 @@ const ProtectedRoute = ({ allowedRoles }) => {
 };
 
 function App() {
-  const location = useLocation(); 
+  const location = useLocation();
 
   const publicRoutes = [
-    '/', '/login', '/signup', '/verify-otp', '/about', '/contact', '/services', // ✅ ADDED /verify-otp
+    '/', '/login', '/signup', '/verify-otp', '/about', '/contact', '/services',
     '/forgot-password', '/unauthorized', '/moreabout'
   ];
 
@@ -54,15 +57,15 @@ function App() {
 
   return (
     <div className="app-root">
-      
-      {showLayout && <Navbar />} 
+
+      {showLayout && <Navbar />}
 
       <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/verifyemail" element={<VerifyEmail/>} /> 
+        <Route path="/verifyemail" element={<VerifyEmail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
@@ -71,7 +74,7 @@ function App() {
         <Route path="/moreabout" element={<MoreAbout />} />
 
         <Route path="/unauthorized" element={
-          <div style={{padding: '50px', textAlign: 'center', color: 'red'}}>
+          <div style={{ padding: '50px', textAlign: 'center', color: 'red' }}>
             <h2>Access Denied</h2>
             <p>Your role is not authorized. Try logging out and back in.</p>
           </div>
@@ -115,7 +118,7 @@ function App() {
       </Routes>
 
       {showLayout && <Footer />}
-      
+
     </div>
   )
 }

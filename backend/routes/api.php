@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\PartsManagerController;
 use App\Http\Controllers\Api\SupervisorController;
 use App\Http\Controllers\Api\AiController;
+use GuzzleHttp\Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,22 @@ Route::prefix('ai')->group(function () {
     Route::get('/health', [AiController::class, 'health']);
     Route::get('/options', [AiController::class, 'options']);
     Route::post('/predict', [AiController::class, 'predict']);
+});
+
+// Proxy to Flask (if AiController is not working, this will call Flask directly)
+Route::post('/ai-proxy', function (Request $request) {
+    try {
+        $client = new Client(['timeout' => 30]);
+        $response = $client->post('http://127.0.0.1:5000/predict', [
+            'json' => $request->all()
+        ]);
+        return response()->json(json_decode($response->getBody(), true), $response->getStatusCode());
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'AI service unavailable',
+            'message' => $e->getMessage()
+        ], 500);
+    }
 });
 
 // Appointment Availability — PUBLIC (no auth, used by clients before login)

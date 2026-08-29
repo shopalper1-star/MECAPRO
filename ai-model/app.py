@@ -191,5 +191,7 @@ def predict():
 
 
 if __name__ == '__main__':
-    print('Auto Repair AI running on http://localhost:5000')
-    app.run(debug=False, port=5000)
+    import os
+    port = int(os.environ.get('PORT', 5000))
+    print(f'Auto Repair AI running on http://0.0.0.0:{port}')
+    app.run(debug=False, host='0.0.0.0', port=port)
