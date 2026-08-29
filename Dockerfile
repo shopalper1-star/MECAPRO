@@ -62,7 +62,7 @@ FROM python:3.11-slim AS ai-model-builder
 
 WORKDIR /app
 
-# Copy requirements and install dependencies (INCLUDING XGBOOST!)
+# Copy requirements and install dependencies
 COPY ai-model/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
