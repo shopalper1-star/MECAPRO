@@ -89,8 +89,17 @@ COPY --from=ai-model-builder /usr/local/lib/python3.11/site-packages /usr/local/
 # Set working directory to Laravel
 WORKDIR /var/www/html
 
+# Clear and cache configuration
+RUN php artisan config:clear
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+
+# Test database connection (will show error if fails, but continue)
+RUN php artisan db:show || echo "Database not ready yet"
+
 # Run migrations (force to avoid prompt)
-RUN php artisan migrate --force || true
+RUN php artisan migrate --force || echo "Migrations failed"
 
 # Expose port
 EXPOSE 8080

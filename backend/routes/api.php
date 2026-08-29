@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\AiController;
 | Public Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/health', [App\Http\Controllers\HealthController::class, 'check']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/verifyemail', [AuthController::class, 'verifyemail']);
@@ -32,14 +33,14 @@ Route::get('/services', [ServiceController::class, 'index']);
 
 // AI Routes — PUBLIC (used on homepage without login + by logged-in clients)
 Route::prefix('ai')->group(function () {
-    Route::get('/health',  [AiController::class, 'health']);
+    Route::get('/health', [AiController::class, 'health']);
     Route::get('/options', [AiController::class, 'options']);
     Route::post('/predict', [AiController::class, 'predict']);
 });
 
 // Appointment Availability — PUBLIC (no auth, used by clients before login)
 Route::get('/appointments/available-slots', [AppointmentController::class, 'availableSlots']);
-Route::get('/appointments/available-days',  [AppointmentController::class, 'availableDays']);
+Route::get('/appointments/available-days', [AppointmentController::class, 'availableDays']);
 
 /*
 |--------------------------------------------------------------------------

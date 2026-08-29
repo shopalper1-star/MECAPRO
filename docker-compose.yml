@@ -3,7 +3,7 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
@@ -15,40 +15,51 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
       - APP_ENV=production
-      - APP_DEBUG=false
+      - APP_DEBUG=true
+      - APP_URL=https://mecapro-backend.orkestr.run
+      - APP_KEY=base64:gnsjo/3aE9CNHxpe/VrBZdCOwGAGE56LQpcE5Ik0MuU=
       - DB_CONNECTION=pgsql
-      - DB_HOST=orkestr-addon-mecapro-mecapro
+      - DB_HOST=postgres
       - DB_PORT=5432
       - DB_DATABASE=mecapro
       - DB_USERNAME=orkestr
       - DB_PASSWORD=QnuYwCrd2NhJYpO-rdrBVz5yHD0t7GU9
+      - DATABASE_URL=postgresql://orkestr:QnuYwCrd2NhJYpO-rdrBVz5yHD0t7GU9@postgres:5432/mecapro
+      - SESSION_DRIVER=database
+      - QUEUE_CONNECTION=database
+      - CACHE_STORE=database
+      - LOG_CHANNEL=stderr
     depends_on:
       - postgres
 
   ai-model:
     build:
-      context: ./ai-model
+      context: .
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
     environment:
       - FLASK_ENV=production
       - DEBUG=False
+      - PYTHONUNBUFFERED=1
 
   postgres:
-    image: postgres:16
+    image: postgres:16-alpine
     environment:
       - POSTGRES_DB=mecapro
       - POSTGRES_USER=orkestr
       - POSTGRES_PASSWORD=QnuYwCrd2NhJYpO-rdrBVz5yHD0t7GU9
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
 
 volumes:
   postgres_data:
