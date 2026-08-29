@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link, useNavigate } from 'react-router-dom';
@@ -45,7 +46,7 @@ const ReceptionistClientDetails = () => {
         const loadingTimeout = setTimeout(() => setLoading(false), 3000);
         try {
             const token = localStorage.getItem('ACCESS_TOKEN');
-            const res = await axios.get(`http://127.0.0.1:8000/api/receptionist/client/${id}/repairs`, {
+            const res = await axios.get(`${API_BASE_URL}/receptionist/client/${id}/repairs`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -71,7 +72,7 @@ const ReceptionistClientDetails = () => {
     const handleLogout = async () => {
         try {
             const token = localStorage.getItem('ACCESS_TOKEN');
-            await axios.post('http://127.0.0.1:8000/api/logout', {}, { headers: { Authorization: `Bearer ${token}` } });
+            await axios.post(`${API_BASE_URL}/logout`,  {}, { headers: { Authorization: `Bearer ${token}` } });
         } catch (error) { console.error("Logout failed", error); }
         localStorage.removeItem('ACCESS_TOKEN');
         localStorage.removeItem('USER_NAME');
@@ -103,7 +104,7 @@ const ReceptionistClientDetails = () => {
     const handleUpdateStatus = async (jobId, newStatus) => {
         try {
             const token = localStorage.getItem('ACCESS_TOKEN');
-            await axios.put(`http://127.0.0.1:8000/api/receptionist/repairs/${jobId}/status`, { status: newStatus }, {
+            await axios.put(`${API_BASE_URL}/receptionist/repairs/${jobId}/status`, { status: newStatus }, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             showMessage(t('receptionist.modal.success', 'Status updated successfully.'), 'success');
@@ -118,7 +119,7 @@ const ReceptionistClientDetails = () => {
         setDownloadingId(jobId);
         try {
             const token = localStorage.getItem('ACCESS_TOKEN');
-            const res = await axios.get(`http://127.0.0.1:8000/api/receptionist/repairs/${jobId}/invoice`, { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.get(`${API_BASE_URL}/receptionist/repairs/${jobId}/invoice`, { headers: { Authorization: `Bearer ${token}` } });
             const data = res.data.data || res.data;
             const doc = new jsPDF();
             doc.setFontSize(20);
@@ -143,7 +144,7 @@ const ReceptionistClientDetails = () => {
             try {
                 setNegotiatingId(job.id);
                 const token = localStorage.getItem('ACCESS_TOKEN');
-                await axios.post(`http://127.0.0.1:8000/api/receptionist/jobs/${job.id}/negotiate`, { decision }, { headers: { Authorization: `Bearer ${token}` } });
+                await axios.post(`${API_BASE_URL}/receptionist/jobs/${job.id}/negotiate`, { decision }, { headers: { Authorization: `Bearer ${token}` } });
                 showMessage("Discount correctly rejected.", "success");
                 fetchClientDetails();
             } catch (err) {
@@ -161,7 +162,7 @@ const ReceptionistClientDetails = () => {
                         setConfirmModal(prev => ({ ...prev, show: false }));
                         setNegotiatingId(job.id);
                         const token = localStorage.getItem('ACCESS_TOKEN');
-                        await axios.post(`http://127.0.0.1:8000/api/receptionist/jobs/${job.id}/negotiate`, { decision: 'approve', custom_prices: prices }, { headers: { Authorization: `Bearer ${token}` } });
+                        await axios.post(`${API_BASE_URL}/receptionist/jobs/${job.id}/negotiate`, { decision: 'approve', custom_prices: prices }, { headers: { Authorization: `Bearer ${token}` } });
                         showMessage("Negotiation approved successfully.", "success");
                         fetchClientDetails();
                     } catch (err) {

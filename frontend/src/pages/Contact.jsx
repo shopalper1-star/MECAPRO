@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -66,7 +67,7 @@ const Contact = () => {
     if (Object.keys(newErrors).length === 0) {
       setIsLoading(true);
       try {
-        const res = await axios.post('http://127.0.0.1:8000/api/contact', formData);
+        const res = await axios.post(`${API_BASE_URL}/contact`,  formData);
         if (res.data.status === 200) {
           setSubmitted(true);
           setFormData({ name: '', email: '', phone: '', message: '' });

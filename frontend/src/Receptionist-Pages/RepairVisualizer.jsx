@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom'; // Added Link
 import { useTranslation } from 'react-i18next';
@@ -71,7 +72,7 @@ const RepairVisualizer = ({ repairJob }) => {
   const fetchRepairs = async () => {
     try {
       const token = localStorage.getItem('ACCESS_TOKEN');
-      const res = await axios.get('http://127.0.0.1:8000/api/receptionist/dashboard', {
+      const res = await axios.get(`${API_BASE_URL}/receptionist/dashboard`,  {
         headers: { Authorization: `Bearer ${token} ` }
       });
       console.log("FIRST REPAIR DATA:", JSON.stringify(res.data.repairs[0], null, 2));

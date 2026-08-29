@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,7 +7,7 @@ import './Repairdetails.css';
 import DashboardNavbar from '../components/DashboardNavbar';
 import SkeletonLoader from '../components/SkeletonLoader';
 
-const BASE = 'http://127.0.0.1:8000/api';
+const BASE = API_BASE_URL;
 
 const MAX_PARTS = 20;
 

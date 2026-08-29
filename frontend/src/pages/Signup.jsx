@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -58,7 +59,7 @@ function Signup() {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/register', formData);
+      const response = await axios.post(`${API_BASE_URL}/register`,  formData);
       navigate('/verifyemail', { state: { email: formData.email, message: response.data.message } });
     } catch (err) {
       setLoading(false);

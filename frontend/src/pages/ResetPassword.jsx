@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import React, { useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -33,7 +34,7 @@ function ResetPassword() {
     }
 
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/reset-password', {
+      const res = await axios.post(`${API_BASE_URL}/reset-password`,  {
         email,
         token,
         password,

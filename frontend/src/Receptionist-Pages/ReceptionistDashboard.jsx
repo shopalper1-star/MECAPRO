@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -71,7 +72,7 @@ const ReceptionistDashboard = () => {
     setMechanicsLoadLoading(true);
     try {
       const token = localStorage.getItem('ACCESS_TOKEN');
-      const res = await axios.get('http://127.0.0.1:8000/api/receptionist/mechanics-load', {
+      const res = await axios.get(`${API_BASE_URL}/receptionist/mechanics-load`,  {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMechanicsLoad(res.data || []);
@@ -88,7 +89,7 @@ const ReceptionistDashboard = () => {
 
   const fetchServices = async () => {
     try {
-      const res = await axios.get('http://127.0.0.1:8000/api/services');
+      const res = await axios.get(`${API_BASE_URL}/services`);
       setServices(res.data);
     } catch (err) { console.error("Error fetching services", err); }
   };
@@ -99,7 +100,7 @@ const ReceptionistDashboard = () => {
       if (!token) {
         return;
       }
-      const res = await axios.get('http://127.0.0.1:8000/api/receptionist/appointments', {
+      const res = await axios.get(`${API_BASE_URL}/receptionist/appointments`,  {
         headers: { Authorization: `Bearer ${token}` }
       });
       const apptData = res.data.data || res.data || [];
@@ -119,8 +120,8 @@ const ReceptionistDashboard = () => {
       const token = localStorage.getItem('ACCESS_TOKEN');
       const authConfig = { headers: { Authorization: `Bearer ${token}` } };
       const [clientRes, dashRes] = await Promise.all([
-        axios.get('http://127.0.0.1:8000/api/receptionist/clients-summary', authConfig),
-        axios.get('http://127.0.0.1:8000/api/receptionist/dashboard', authConfig)
+        axios.get(`${API_BASE_URL}/receptionist/clients-summary`,  authConfig),
+        axios.get(`${API_BASE_URL}/receptionist/dashboard`,  authConfig)
       ]);
       
       const repairsData = dashRes.data.repairs || [];
@@ -173,7 +174,7 @@ const ReceptionistDashboard = () => {
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem('ACCESS_TOKEN');
-      await axios.post('http://127.0.0.1:8000/api/logout', {}, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.post(`${API_BASE_URL}/logout`,  {}, { headers: { Authorization: `Bearer ${token}` } });
     } catch (error) { console.error("Logout failed", error); }
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('USER_NAME');
@@ -191,7 +192,7 @@ const ReceptionistDashboard = () => {
     setApptActionLoading(id + '-approve');
     try {
       const token = localStorage.getItem('ACCESS_TOKEN');
-      await axios.post(`http://127.0.0.1:8000/api/receptionist/appointments/${id}/approve`,
+      await axios.post(`${API_BASE_URL}/receptionist/appointments/${id}/approve`,
         { notes: apptNotes[id] || '' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -206,7 +207,7 @@ const ReceptionistDashboard = () => {
     setApptActionLoading(id + '-decline');
     try {
       const token = localStorage.getItem('ACCESS_TOKEN');
-      await axios.post(`http://127.0.0.1:8000/api/receptionist/appointments/${id}/decline`,
+      await axios.post(`${API_BASE_URL}/receptionist/appointments/${id}/decline`,
         { notes: apptNotes[id] || '' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -298,7 +299,7 @@ const ReceptionistDashboard = () => {
     if (query.length > 0) {
       try {
         const token = localStorage.getItem('ACCESS_TOKEN');
-        const res = await axios.get(`http://127.0.0.1:8000/api/receptionist/clients/search?query=${query}`, {
+        const res = await axios.get(`${API_BASE_URL}/receptionist/clients/search?query=${query}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setSearchResults(res.data);
@@ -312,7 +313,7 @@ const ReceptionistDashboard = () => {
     setSearchResults([]);
     try {
       const token = localStorage.getItem('ACCESS_TOKEN');
-      const res = await axios.get(`http://127.0.0.1:8000/api/receptionist/clients/${client.id}/vehicles`, {
+      const res = await axios.get(`${API_BASE_URL}/receptionist/clients/${client.id}/vehicles`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setClientVehicles(res.data);
@@ -380,7 +381,7 @@ const ReceptionistDashboard = () => {
     try {
       const token = localStorage.getItem('ACCESS_TOKEN');
       const payload = { ...formData, service_ids: selectedServices.map(s => s.id) };
-      const response = await axios.post('http://127.0.0.1:8000/api/receptionist/jobs', payload, {
+      const response = await axios.post(`${API_BASE_URL}/receptionist/jobs`,  payload, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.status === 200 || response.status === 201) {

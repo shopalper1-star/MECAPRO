@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -7,7 +8,7 @@ import SkeletonLoader from '../components/SkeletonLoader';
 import { patterns, validationMessages, sanitizeInput } from '../utils/validation';
 import './MechanicDashboard.css';
 
-const BASE = 'http://127.0.0.1:8000/api';
+const BASE = API_BASE_URL;
 const PAGE_SIZE = 15;
 
 const MechanicDashboard = () => {

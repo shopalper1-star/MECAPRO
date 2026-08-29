@@ -1,3 +1,4 @@
+import API_BASE_URL from '../api.js';
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -56,7 +57,7 @@ function VerifyOtp() {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/verifyemail',
+        `${API_BASE_URL}/verifyemail`,
         formData
       );
 
@@ -87,7 +88,7 @@ function VerifyOtp() {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/resend-otp',
+        `${API_BASE_URL}/resend-otp`,
         { email: formData.email }
       );
 

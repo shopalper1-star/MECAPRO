@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +29,7 @@ const UserManagement = () => {
         phone: ''
     });
 
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000/api';
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || API_BASE_URL;
 
     const getAxiosConfig = () => {
         const token = localStorage.getItem('ACCESS_TOKEN');

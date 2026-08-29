@@ -1,3 +1,4 @@
+﻿import API_BASE_URL from '../api.js';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +19,7 @@ function ForgotPassword() {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/forgot-password', { email });
+      const response = await axios.post(`${API_BASE_URL}/forgot-password`,  { email });
       setMessage(response.data.message || t('auth.reset_link_sent'));
     } catch (err) {
       if (err.response && err.response.data) {

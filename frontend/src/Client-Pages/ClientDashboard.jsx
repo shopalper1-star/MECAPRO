@@ -1,3 +1,4 @@
+import API_BASE_URL from '../api.js';
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -109,10 +110,10 @@ const ClientDashboard = () => {
 
         try {
             const [repairRes, vehicleRes, userRes, apptRes] = await Promise.all([
-                axios.get('http://127.0.0.1:8000/api/client/repairs', { headers: { Authorization: `Bearer ${token}` } }),
-                axios.get('http://127.0.0.1:8000/api/client/vehicles', { headers: { Authorization: `Bearer ${token}` } }),
-                axios.get('http://127.0.0.1:8000/api/user', { headers: { Authorization: `Bearer ${token}` } }),
-                axios.get('http://127.0.0.1:8000/api/client/appointments', { headers: { Authorization: `Bearer ${token}` } }),
+                axios.get(`${API_BASE_URL}/client/repairs`,  { headers: { Authorization: `Bearer ${token}` } }),
+                axios.get(`${API_BASE_URL}/client/vehicles`,  { headers: { Authorization: `Bearer ${token}` } }),
+                axios.get(`${API_BASE_URL}/user`,  { headers: { Authorization: `Bearer ${token}` } }),
+                axios.get(`${API_BASE_URL}/client/appointments`,  { headers: { Authorization: `Bearer ${token}` } }),
             ]);
 
             setRepairs(repairRes.data.data || []);
@@ -177,7 +178,7 @@ const ClientDashboard = () => {
 
         try {
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/jobs/${repairId}/approve`,
+                `${API_BASE_URL}/jobs/${repairId}/approve`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -205,7 +206,7 @@ const ClientDashboard = () => {
 
         try {
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/jobs/${repairId}/approve`,
+                `${API_BASE_URL}/jobs/${repairId}/approve`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -232,7 +233,7 @@ const ClientDashboard = () => {
 
         try {
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/jobs/${repairId}/decline`,
+                `${API_BASE_URL}/jobs/${repairId}/decline`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -260,7 +261,7 @@ const ClientDashboard = () => {
 
         try {
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/jobs/${repairId}/negotiate`,
+                `${API_BASE_URL}/jobs/${repairId}/negotiate`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -288,7 +289,7 @@ const ClientDashboard = () => {
         const fetchDays = async () => {
             setDaysLoading(true);
             try {
-                const res = await axios.get(`http://127.0.0.1:8000/api/appointments/available-days`);
+                const res = await axios.get(`${API_BASE_URL}/appointments/available-days`);
                 setAvailableDays(res.data.days || []);
                 setStartIndex(0);
             } catch (err) {
@@ -324,7 +325,7 @@ const ClientDashboard = () => {
         const token = localStorage.getItem('ACCESS_TOKEN');
         try {
             await axios.post(
-                'http://127.0.0.1:8000/api/client/appointments',
+                `${API_BASE_URL}/client/appointments`,
                 newAppointment,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -763,7 +764,7 @@ const ClientDashboard = () => {
 
         try {
             await axios.post(
-                'http://127.0.0.1:8000/api/vehicles',
+                `${API_BASE_URL}/vehicles`,
                 newVehicle,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
