@@ -108,16 +108,15 @@ RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
 
-# Test database connection (will show error if fails, but continue)
-RUN php artisan db:show || echo "Database not ready yet"
-
 # ============================================
-# RUN ALL MIGRATIONS - THIS CREATES ALL TABLES
+# REMOVED: RUN php artisan migrate --force
+# (Database not available during build)
 # ============================================
-RUN php artisan migrate --force --no-interaction || echo "Migrations failed"
 
 # Expose port
 EXPOSE 8080
 
-# Start Laravel server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
+# ============================================
+# STARTUP SCRIPT - Runs migrations on container start
+# ============================================
+CMD ["sh", "-c", "php artisan migrate --force --no-interaction && php artisan serve --host=0.0.0.0 --port=8080"]
