@@ -23,15 +23,14 @@ else
 fi
 
 echo "=========================================="
-echo "Fixing Laravel permissions..."
+echo "Clearing Laravel view cache..."
 echo "=========================================="
-chmod -R 777 /var/www/html/storage
-chmod -R 777 /var/www/html/bootstrap/cache
+cd /var/www/html
+php artisan view:clear
 
 echo "=========================================="
 echo "Running Laravel migrations..."
 echo "=========================================="
-cd /var/www/html
 php artisan migrate --force --no-interaction
 
 echo "=========================================="

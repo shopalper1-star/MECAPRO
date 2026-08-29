@@ -49,10 +49,17 @@ COPY backend/ ./
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
+# ============================================
+# 🟢 FIX PERMISSIONS IN THE BUILDER STAGE
+# (This ensures storage is writable when copied)
+# ============================================
+RUN mkdir -p /var/www/html/storage/framework/views \
+    && mkdir -p /var/www/html/storage/framework/cache/data \
+    && mkdir -p /var/www/html/storage/framework/sessions \
+    && mkdir -p /var/www/html/storage/framework/testing \
+    && mkdir -p /var/www/html/storage/logs \
+    && chmod -R 777 /var/www/html/storage \
+    && chmod -R 777 /var/www/html/bootstrap/cache
 
 
 # ============================================
@@ -119,19 +126,11 @@ WORKDIR /var/www/html
 # Disable Telescope to avoid table errors during migration
 ENV TELESCOPE_ENABLED=false
 
-# Clear and cache configuration
-RUN php artisan config:clear
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
-
-# ============================================
-# 🟢 FIX PERMISSIONS FOR LARAVEL STORAGE
-# ============================================
-RUN chmod -R 777 /var/www/html/storage \
-    && chmod -R 777 /var/www/html/bootstrap/cache \
-    && chown -R www-data:www-data /var/www/html/storage \
-    && chown -R www-data:www-data /var/www/html/bootstrap/cache
+# Clear and cache configuration (NO chmod here - permissions already set)
+RUN php artisan config:clear \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:clear
 
 # ============================================
 # CREATE STARTUP SCRIPT
