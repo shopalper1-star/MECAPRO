@@ -126,6 +126,14 @@ RUN php artisan route:cache
 RUN php artisan view:cache
 
 # ============================================
+# 🟢 FIX PERMISSIONS FOR LARAVEL STORAGE
+# ============================================
+RUN chmod -R 777 /var/www/html/storage \
+    && chmod -R 777 /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html/storage \
+    && chown -R www-data:www-data /var/www/html/bootstrap/cache
+
+# ============================================
 # CREATE STARTUP SCRIPT
 # ============================================
 COPY backend/startup.sh /usr/local/bin/startup.sh

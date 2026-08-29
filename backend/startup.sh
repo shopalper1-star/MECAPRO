@@ -23,6 +23,12 @@ else
 fi
 
 echo "=========================================="
+echo "Fixing Laravel permissions..."
+echo "=========================================="
+chmod -R 777 /var/www/html/storage
+chmod -R 777 /var/www/html/bootstrap/cache
+
+echo "=========================================="
 echo "Running Laravel migrations..."
 echo "=========================================="
 cd /var/www/html
