@@ -12,8 +12,8 @@ class AiController extends Controller
 
     public function __construct()
     {
-        // Add to your .env: FLASK_API_URL=http://127.0.0.1:5000
-        $this->flaskBaseUrl = env('FLASK_API_URL', 'http://127.0.0.1:5000');
+        // Add to your .env: FLASK_API_URL=http://127.0.0.1:5001
+        $this->flaskBaseUrl = env('FLASK_API_URL', 'http://127.0.0.1:5001');
     }
 
     /**

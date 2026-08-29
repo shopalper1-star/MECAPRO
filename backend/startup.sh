@@ -30,8 +30,9 @@ echo "Starting Flask AI on port 5001 (internal)..."
 echo "=========================================="
 cd /var/www/html/ai-model
 
-# Start Flask on port 5001
-nohup python3 app.py --host=0.0.0.0 --port=5001 > /var/www/html/ai-model/flask.log 2>&1 &
+# Start Flask on port 5001 (pass PORT as env var, not CLI arg — app.py reads os.environ.get('PORT'))
+export PORT=5001
+nohup python3 app.py > /var/www/html/ai-model/flask.log 2>&1 &
 FLASK_PID=$!
 echo "Flask PID: $FLASK_PID"
 
