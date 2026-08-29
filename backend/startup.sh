@@ -2,27 +2,11 @@
 set -e
 
 echo "=========================================="
-echo "Checking Python..."
-echo "=========================================="
-which python3
-python3 --version
-
-echo "=========================================="
-echo "Checking Flask..."
-echo "=========================================="
-python3 -c "import flask; print(f'Flask version: {flask.__version__}')" || echo "Flask NOT found!"
-
-echo "=========================================="
-echo "Checking xgboost..."
-echo "=========================================="
-python3 -c "import xgboost; print(f'XGBoost version: {xgboost.__version__}')" || echo "XGBoost NOT found!"
-
-echo "=========================================="
 echo "Starting Flask AI on port 5000 (internal)..."
 echo "=========================================="
 cd /var/www/html/ai-model
 
-# Start Flask in background (internal only, NOT exposed)
+# Start Flask in background
 nohup python3 app.py --host=0.0.0.0 --port=5000 > /var/www/html/ai-model/flask.log 2>&1 &
 FLASK_PID=$!
 echo "Flask PID: $FLASK_PID"
@@ -47,4 +31,5 @@ php artisan migrate --force --no-interaction
 echo "=========================================="
 echo "Starting Laravel on port 8080 (EXTERNAL)..."
 echo "=========================================="
+# This MUST run in foreground so it stays alive!
 php artisan serve --host=0.0.0.0 --port=8080
