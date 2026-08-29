@@ -78,19 +78,22 @@ COPY ai-model/models/ ./models/
 # ============================================
 FROM php:8.2-apache
 
-# Install Python AND PostgreSQL driver for final image
+# Install Python AND build tools (REQUIRED for pip install)
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
+    python3-dev \
     libpq-dev \
+    gcc \
+    g++ \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && docker-php-ext-install pdo_pgsql pgsql
 
 # ============================================
-# 🟢 COPY PYTHON PACKAGES FROM AI MODEL BUILDER
-# (This avoids the pip3 install failure)
+# 🟢 INSTALL PYTHON PACKAGES DIRECTLY IN FINAL IMAGE
+# (With build tools now installed, this WILL succeed)
 # ============================================
-COPY --from=ai-model-builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+RUN pip3 install --no-cache-dir flask flask-cors joblib pandas numpy scikit-learn
 
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html

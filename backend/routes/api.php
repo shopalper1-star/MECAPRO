@@ -1,3 +1,6 @@
+<!-- backend/routes/api.php -->
+
+
 <?php
 
 use Illuminate\Http\Request;
@@ -163,4 +166,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/staff/{id}', [SupervisorController::class, 'update']);
         Route::patch('/staff/{id}/toggle-status', [SupervisorController::class, 'toggleStatus']);
     });
+});
+
+// DEBUG ROUTE - Check what's in the container
+Route::get('/debug-container', function () {
+    $output = [];
+    $output['python_exists'] = file_exists('/usr/bin/python3') || file_exists('/usr/bin/python');
+    $output['flask_installed'] = shell_exec('python3 -c "import flask; print(flask.__version__)" 2>&1');
+    $output['ai_model_dir_exists'] = is_dir('/var/www/html/ai-model');
+    $output['app_py_exists'] = file_exists('/var/www/html/ai-model/app.py');
+    $output['models_dir_exists'] = is_dir('/var/www/html/ai-model/models');
+    $output['ai_model_files'] = is_dir('/var/www/html/ai-model') ? scandir('/var/www/html/ai-model') : 'Directory not found';
+    $output['port_5000_listening'] = shell_exec('netstat -tulpn 2>/dev/null | grep 5000 || echo "Port 5000 not listening"');
+    $output['flask_process'] = shell_exec('ps aux | grep -i flask 2>/dev/null || echo "No Flask process found"');
+    return response()->json($output);
 });
