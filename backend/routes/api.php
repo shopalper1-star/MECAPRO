@@ -43,7 +43,7 @@ Route::prefix('ai')->group(function () {
 Route::post('/ai-proxy', function (Request $request) {
     try {
         $client = new Client(['timeout' => 30]);
-        $response = $client->post('http://127.0.0.1:5000/predict', [
+        $response = $client->post('http://127.0.0.1:5001/predict', [
             'json' => $request->all()
         ]);
         return response()->json(json_decode($response->getBody(), true), $response->getStatusCode());
@@ -59,7 +59,7 @@ Route::post('/ai-proxy', function (Request $request) {
 Route::get('/test-flask', function () {
     try {
         $client = new Client(['timeout' => 5]);
-        $response = $client->get('http://127.0.0.1:5000/health');
+        $response = $client->get('http://127.0.0.1:5001/health');
         return response()->json([
             'flask_status' => 'reachable',
             'response' => json_decode($response->getBody(), true)
@@ -82,7 +82,7 @@ Route::get('/debug-container', function () {
     $output['app_py_exists'] = file_exists('/var/www/html/ai-model/app.py');
     $output['models_dir_exists'] = is_dir('/var/www/html/ai-model/models');
     $output['ai_model_files'] = is_dir('/var/www/html/ai-model') ? scandir('/var/www/html/ai-model') : 'Directory not found';
-    $output['port_5000_listening'] = shell_exec('netstat -tulpn 2>/dev/null | grep 5000 || echo "Port 5000 not listening"');
+    $output['port_5001_listening'] = shell_exec('netstat -tulpn 2>/dev/null | grep 5001 || echo "Port 5001 not listening"');
     $output['flask_process'] = shell_exec('ps aux | grep -i flask 2>/dev/null || echo "No Flask process found"');
     $output['flask_log'] = file_exists('/var/www/html/ai-model/flask.log') ? file_get_contents('/var/www/html/ai-model/flask.log') : 'No log file';
     return response()->json($output);
