@@ -30,7 +30,7 @@ echo "Starting Flask AI on port 5001 (internal)..."
 echo "=========================================="
 cd /var/www/html/ai-model
 
-# Start Flask in background
+# Start Flask on port 5001
 nohup python3 app.py --host=0.0.0.0 --port=5001 > /var/www/html/ai-model/flask.log 2>&1 &
 FLASK_PID=$!
 echo "Flask PID: $FLASK_PID"

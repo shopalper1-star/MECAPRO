@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Health check
+// Health check (without /api prefix - accessible directly)
 Route::get('/health', function () {
     return response()->json(['status' => 'ok', 'timestamp' => now()]);
 });
@@ -12,14 +12,8 @@ Route::get('/test', function () {
     return 'Laravel is working! DB: ' . (app()->has('db') ? 'Connected' : 'Not connected');
 });
 
-// API routes
-Route::prefix('api')->group(function () {
-    Route::get('/health', function () {
-        return response()->json(['status' => 'ok', 'timestamp' => now()]);
-    });
-});
-
 // Serve React app - MUST BE LAST ROUTE
+// IMPORTANT: This excludes /api/* routes so they go to api.php
 Route::get('/{any}', function () {
     $indexPath = public_path('index.html');
 
@@ -29,7 +23,7 @@ Route::get('/{any}', function () {
 
     return response()->json([
         'error' => 'Frontend not built',
-        'message' => 'index.html not found in public directory. Check that the frontend was built correctly.',
+        'message' => 'index.html not found in public directory.',
         'public_path' => public_path()
     ], 500);
-})->where('any', '.*');
+})->where('any', '^(?!api).*$');
