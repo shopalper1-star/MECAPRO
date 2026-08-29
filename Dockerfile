@@ -109,14 +109,18 @@ RUN php artisan route:cache
 RUN php artisan view:cache
 
 # ============================================
-# REMOVED: RUN php artisan migrate --force
-# (Database not available during build)
+# CREATE STARTUP SCRIPT
 # ============================================
+COPY backend/startup.sh /usr/local/bin/startup.sh
+RUN chmod +x /usr/local/bin/startup.sh
+
+# Create log file for Flask
+RUN touch /var/www/html/ai-model/flask.log
 
 # Expose port
 EXPOSE 8080
 
 # ============================================
-# STARTUP SCRIPT - Runs migrations on container start
+# STARTUP - Uses startup script for reliability
 # ============================================
-CMD ["sh", "-c", "php artisan migrate --force --no-interaction && php artisan serve --host=0.0.0.0 --port=8080"]
+CMD ["/usr/local/bin/startup.sh"]

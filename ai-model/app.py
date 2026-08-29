@@ -4,23 +4,58 @@ import joblib
 import pandas as pd
 import numpy as np
 import json
+import sys
+import os
 from datetime import datetime
+
+# Force Python to flush output immediately
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
+
+# Log file for debugging
+LOG_FILE = '/var/www/html/ai-model/flask.log'
+
+class Tee:
+    def __init__(self, *files):
+        self.files = files
+    def write(self, obj):
+        for f in self.files:
+            f.write(obj)
+            f.flush()
+    def flush(self):
+        for f in self.files:
+            f.flush()
+
+# Redirect stdout/stderr to both console and log file
+log_f = open(LOG_FILE, 'a')
+sys.stdout = Tee(sys.stdout, log_f)
+sys.stderr = Tee(sys.stderr, log_f)
 
 np.set_printoptions(suppress=True)
 
 app = Flask(__name__)
 CORS(app)
 
-repair_model   = joblib.load('models/repair_model.pkl')
-cost_min_model = joblib.load('models/cost_min_model.pkl')
-cost_max_model = joblib.load('models/cost_max_model.pkl')
-label_encoder  = joblib.load('models/label_encoder.pkl')
+# Try to load models with error handling
+try:
+    repair_model   = joblib.load('models/repair_model.pkl')
+    cost_min_model = joblib.load('models/cost_min_model.pkl')
+    cost_max_model = joblib.load('models/cost_max_model.pkl')
+    label_encoder  = joblib.load('models/label_encoder.pkl')
+    print("✅ Models loaded successfully")
+except Exception as e:
+    print(f"❌ Error loading models: {e}")
+    raise
 
-with open('models/repair_classes.json') as f:
-    repair_classes = json.load(f)
-
-with open('models/options.json') as f:
-    options = json.load(f)
+try:
+    with open('models/repair_classes.json') as f:
+        repair_classes = json.load(f)
+    with open('models/options.json') as f:
+        options = json.load(f)
+    print("✅ JSON files loaded successfully")
+except Exception as e:
+    print(f"❌ Error loading JSON files: {e}")
+    raise
 
 CAT_COLS = ['vehicle_type', 'make', 'model', 'fuel_type', 'transmission', 'severity_level']
 NUM_COLS = ['year', 'vehicle_age_years', 'mileage', 'engine_size_cc', 'symptom_count']
@@ -49,8 +84,9 @@ def _warmup():
         repair_model.predict_proba(repair_df)
         cost_min_model.predict(cost_df)
         cost_max_model.predict(cost_df)
-    except Exception:
-        pass
+        print("✅ Model warmup complete")
+    except Exception as e:
+        print(f"⚠️ Warmup error (non-fatal): {e}")
 
 _warmup()
 
@@ -187,11 +223,12 @@ def predict():
     except KeyError as e:
         return jsonify({'success': False, 'error': f'Missing field: {str(e)}'}), 400
     except Exception as e:
+        print(f"❌ Prediction error: {e}")
         return jsonify({'success': False, 'error': str(e)}), 500
 
 
 if __name__ == '__main__':
-    import os
     port = int(os.environ.get('PORT', 5000))
-    print(f'Auto Repair AI running on http://0.0.0.0:{port}')
+    print(f'✅ Auto Repair AI running on http://0.0.0.0:{port}')
+    sys.stdout.flush()
     app.run(debug=False, host='0.0.0.0', port=port)

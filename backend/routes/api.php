@@ -55,10 +55,10 @@ Route::post('/ai-proxy', function (Request $request) {
     }
 });
 
-
+// TEST FLASK CONNECTION - Add this route
 Route::get('/test-flask', function () {
     try {
-        $client = new \GuzzleHttp\Client(['timeout' => 5]);
+        $client = new Client(['timeout' => 5]);
         $response = $client->get('http://127.0.0.1:5000/health');
         return response()->json([
             'flask_status' => 'reachable',
@@ -71,7 +71,6 @@ Route::get('/test-flask', function () {
         ], 500);
     }
 });
-
 
 // Appointment Availability — PUBLIC (no auth, used by clients before login)
 Route::get('/appointments/available-slots', [AppointmentController::class, 'availableSlots']);
