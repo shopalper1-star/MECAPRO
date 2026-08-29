@@ -55,6 +55,24 @@ Route::post('/ai-proxy', function (Request $request) {
     }
 });
 
+
+Route::get('/test-flask', function () {
+    try {
+        $client = new \GuzzleHttp\Client(['timeout' => 5]);
+        $response = $client->get('http://127.0.0.1:5000/health');
+        return response()->json([
+            'flask_status' => 'reachable',
+            'response' => json_decode($response->getBody(), true)
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'flask_status' => 'unreachable',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+});
+
+
 // Appointment Availability — PUBLIC (no auth, used by clients before login)
 Route::get('/appointments/available-slots', [AppointmentController::class, 'availableSlots']);
 Route::get('/appointments/available-days', [AppointmentController::class, 'availableDays']);
