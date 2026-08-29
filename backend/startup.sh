@@ -13,15 +13,27 @@ echo "=========================================="
 python3 -c "import flask; print(f'Flask version: {flask.__version__}')" || echo "Flask NOT found!"
 
 echo "=========================================="
+echo "Checking xgboost..."
+echo "=========================================="
+python3 -c "import xgboost; print(f'XGBoost version: {xgboost.__version__}')" || echo "XGBoost NOT found!"
+
+echo "=========================================="
+echo "Checking models..."
+echo "=========================================="
+ls -la /var/www/html/ai-model/models/ || echo "Models directory not found!"
+
+echo "=========================================="
 echo "Starting Flask AI on port 5000..."
 echo "=========================================="
 cd /var/www/html/ai-model
-python3 app.py --host=0.0.0.0 --port=5000 > /var/www/html/ai-model/flask.log 2>&1 &
+
+# Use nohup to keep Flask running even if parent shell exits
+nohup python3 app.py --host=0.0.0.0 --port=5000 > /var/www/html/ai-model/flask.log 2>&1 &
 FLASK_PID=$!
 echo "Flask PID: $FLASK_PID"
 
-# Give Flask 10 seconds to start (increased from 5)
-sleep 10
+# Give Flask 15 seconds to load models and start
+sleep 15
 
 # Check if Flask is actually running
 if kill -0 $FLASK_PID 2>/dev/null; then

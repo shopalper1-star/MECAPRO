@@ -62,7 +62,7 @@ FROM python:3.11-slim AS ai-model-builder
 
 WORKDIR /app
 
-# Copy requirements and install dependencies
+# Copy requirements and install dependencies (INCLUDING XGBOOST!)
 COPY ai-model/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -91,9 +91,17 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_pgsql pgsql
 
 # ============================================
-# INSTALL PYTHON PACKAGES - WITH --break-system-packages
+# 🟢 INSTALL PYTHON PACKAGES - INCLUDING XGBOOST + WAITRESS!
 # ============================================
-RUN pip3 install --break-system-packages --no-cache-dir flask flask-cors joblib pandas numpy scikit-learn
+RUN pip3 install --break-system-packages --no-cache-dir \
+    flask \
+    flask-cors \
+    joblib \
+    pandas \
+    numpy \
+    scikit-learn \
+    xgboost \
+    waitress
 
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html

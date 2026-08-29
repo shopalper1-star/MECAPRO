@@ -77,6 +77,7 @@ Route::get('/debug-container', function () {
     $output = [];
     $output['python_exists'] = file_exists('/usr/bin/python3') || file_exists('/usr/bin/python');
     $output['flask_installed'] = shell_exec('python3 -c "import flask; print(flask.__version__)" 2>&1');
+    $output['xgboost_installed'] = shell_exec('python3 -c "import xgboost; print(xgboost.__version__)" 2>&1');
     $output['ai_model_dir_exists'] = is_dir('/var/www/html/ai-model');
     $output['app_py_exists'] = file_exists('/var/www/html/ai-model/app.py');
     $output['models_dir_exists'] = is_dir('/var/www/html/ai-model/models');
