@@ -89,8 +89,8 @@ RUN apt-get update && apt-get install -y \
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html
 
-# Copy Frontend (served from Laravel public folder)
-COPY --from=frontend-builder /app/frontend/dist /var/www/html/public
+# Copy Frontend (served from Laravel public folder) - FIXED: Added trailing slash
+COPY --from=frontend-builder /app/frontend/dist/ /var/www/html/public/
 
 # Copy AI Model
 COPY --from=ai-model-builder /app /var/www/html/ai-model
