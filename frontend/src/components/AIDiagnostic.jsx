@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import "./AIDiagnostic.css";
 
-const API_BASE = "http://127.0.0.1:8000/api";
+// 🔥 FIXED: Use the deployed Laravel URL instead of localhost
+const API_BASE = "https://mecapro.orkestr.run/api";
 
 const SEVERITY_COLOR = {
   low: "#22c55e",
@@ -96,7 +97,7 @@ export default function AIDiagnostic({ token = null, onClose = null, inModal = f
 
       setPredictions(data.predictions);
     } catch (err) {
-      setPredictError(t('ai.messages.service_unreachable', "Could not reach the AI service. Make sure Flask is running on port 5000."));
+      setPredictError(t('ai.messages.service_unreachable', "Could not reach the AI service."));
       setPredictErrorDetails([]);
     } finally {
       setPredicting(false);
@@ -127,7 +128,7 @@ export default function AIDiagnostic({ token = null, onClose = null, inModal = f
         <div className="ai-modal ai-modal--error">
           <h2><i class="fa-solid fa-triangle-exclamation"></i> {t('ai.service_unavailable', 'AI Service Unavailable')}</h2>
           <p>{optionsError}</p>
-          <p className="ai-hint">{t('ai.hint_flask', 'Make sure the Flask server is running on port 5000.')}</p>
+          <p className="ai-hint">{t('ai.hint_flask', 'Please try again later.')}</p>
           {onClose && (
             <button className="ai-btn ai-btn--secondary" onClick={onClose}>{t('common.close', 'Close')}</button>
           )}
