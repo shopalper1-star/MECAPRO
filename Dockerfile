@@ -1,4 +1,9 @@
 # ============================================
+# FORCE REBUILD - PostgreSQL driver fix
+# ============================================
+ARG CACHE_BUST=20260829
+
+# ============================================
 # STAGE 1: Build Frontend (React + Vite)
 # ============================================
 FROM node:20-alpine AS frontend-builder
@@ -17,13 +22,13 @@ RUN chmod +x node_modules/.bin/vite && ./node_modules/.bin/vite build
 
 
 # ============================================
-# STAGE 2: Build Backend (Laravel)
+# STAGE 2: Build Backend (Laravel) - WITH POSTGRESQL
 # ============================================
 FROM php:8.2-apache AS backend-builder
 
 WORKDIR /var/www/html
 
-# Install system dependencies
+# Install system dependencies + PostgreSQL driver
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -32,7 +37,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
-    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+    libpq-dev \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd pdo_pgsql pgsql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -68,13 +74,17 @@ COPY ai-model/models/ ./models/
 
 
 # ============================================
-# STAGE 4: Final Combined Image
+# STAGE 4: Final Combined Image - WITH POSTGRESQL
 # ============================================
 FROM php:8.2-apache
 
-# Install Python (for AI model)
-RUN apt-get update && apt-get install -y python3 python3-pip && \
-    ln -s /usr/bin/python3 /usr/bin/python
+# Install Python AND PostgreSQL driver for final image
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    libpq-dev \
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    && docker-php-ext-install pdo_pgsql pgsql
 
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html
