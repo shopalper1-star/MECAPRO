@@ -90,10 +90,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo_pgsql pgsql
 
 # ============================================
-# 🟢 INSTALL PYTHON PACKAGES DIRECTLY IN FINAL IMAGE
-# (With build tools now installed, this WILL succeed)
+# 🟢 INSTALL PYTHON PACKAGES - WITH --break-system-packages
 # ============================================
-RUN pip3 install --no-cache-dir flask flask-cors joblib pandas numpy scikit-learn
+RUN pip3 install --break-system-packages --no-cache-dir flask flask-cors joblib pandas numpy scikit-learn
 
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html
