@@ -66,11 +66,11 @@ WORKDIR /app
 COPY ai-model/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy AI model source code
+# Copy AI model source code AND model files
 COPY ai-model/ ./
 
-# Copy model files
-COPY ai-model/models/ ./models/
+# Verify models exist
+RUN ls -la models/
 
 
 # ============================================
@@ -78,7 +78,7 @@ COPY ai-model/models/ ./models/
 # ============================================
 FROM php:8.2-apache
 
-# Install Python AND build tools (REQUIRED for pip install)
+# Install Python AND build tools
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
@@ -86,22 +86,24 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     gcc \
     g++ \
+    net-tools \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && docker-php-ext-install pdo_pgsql pgsql
 
 # ============================================
-# 🟢 INSTALL PYTHON PACKAGES - WITH --break-system-packages
+# INSTALL PYTHON PACKAGES - WITH --break-system-packages
 # ============================================
 RUN pip3 install --break-system-packages --no-cache-dir flask flask-cors joblib pandas numpy scikit-learn
 
 # Copy Backend
 COPY --from=backend-builder /var/www/html /var/www/html
 
-# Copy Frontend (served from Laravel public folder) - FIXED: Added trailing slash
+# Copy Frontend (served from Laravel public folder)
 COPY --from=frontend-builder /app/frontend/dist/ /var/www/html/public/
 
-# Copy AI Model source code
+# Copy AI Model source code AND models (CRITICAL!)
 COPY --from=ai-model-builder /app /var/www/html/ai-model
+COPY --from=ai-model-builder /app/models /var/www/html/ai-model/models
 
 # Set working directory to Laravel
 WORKDIR /var/www/html

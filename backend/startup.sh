@@ -20,8 +20,8 @@ python3 app.py --host=0.0.0.0 --port=5000 > /var/www/html/ai-model/flask.log 2>&
 FLASK_PID=$!
 echo "Flask PID: $FLASK_PID"
 
-# Give Flask 5 seconds to start
-sleep 5
+# Give Flask 10 seconds to start (increased from 5)
+sleep 10
 
 # Check if Flask is actually running
 if kill -0 $FLASK_PID 2>/dev/null; then
